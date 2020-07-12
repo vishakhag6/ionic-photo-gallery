@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommondataService } from '../commondata.service';
 
 @Component({
   selector: 'app-tab1',
@@ -6,7 +8,29 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  imageList = [];
+  @HostListener('scroll', ['$event.target'])
+  onScroll(elem){
+    if(( elem.offsetHeight + elem.scrollTop) >=  elem.scrollHeight) {
+    }
+  }
+  constructor(private _dataService: CommondataService, private router: Router) {}
 
-  constructor() {}
+  ngOnInit() {
+    this.showData();
+  }
 
+  showData() {
+    this._dataService.getDataService().subscribe((data: any) => {
+      if (data) {
+        this.imageList = data.slice(0, 10)
+      }
+    });
+  }
+
+  clickHandler (data, index) {
+    this.router.navigate(['/details'], {
+      queryParams: { url: data.url, index: index },
+    });
+  }
 }

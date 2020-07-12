@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <ion-button size="small" (click)="goBack()">Back</ion-button>
+      Details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollTracker>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <ion-button expand="block" fill="outline" (click)="goNext('0')">Prev</ion-button>
+    <ion-card>
+      <img src="{{loadedImage}}" />
+    </ion-card>
+    <ion-button expand="block" fill="outline" (click)="goNext('1')">Next</ion-button>
+  </div>  
+</ion-content>
