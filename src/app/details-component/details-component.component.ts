@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CommondataService } from '../commondata.service';
+import { IonSlides } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-details-component',
@@ -10,7 +12,11 @@ import { CommondataService } from '../commondata.service';
 export class DetailsComponentComponent implements OnInit {
   loadedImage = '';
   loadedIndex;
-  dataList = []
+  dataList = [];
+  currentIndex:Number;
+
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+
   constructor( private _dataService: CommondataService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -21,30 +27,16 @@ export class DetailsComponentComponent implements OnInit {
     this.showData();
   }
 
+  slideChanged(slides: IonSlides) {
+   slides.getActiveIndex().then((index: number) => {
+    console.log(index);
+    // this.currentIndex = index;
+   });
+  } 
+
   showData() {
     this._dataService.getDataService().subscribe((data: any) => {
       this.dataList = data
     });
-  }
-
-  goNext(value) {
-    if (value === '0') {
-      if (this.loadedIndex > 0) {
-        this.loadedIndex -= 1;
-      } else {
-        this.loadedIndex = 0;
-      }
-    } else if (value === '1') {
-      if (this.loadedIndex !== this.dataList.length - 1) {
-        this.loadedIndex += 1;
-      } else {
-        this.loadedIndex = 0;
-      }
-    }
-    this.loadedImage = this.dataList[this.loadedIndex].url;
-  }
-
-  goBack() {
-    this.router.navigate(['/']);
   }
 }

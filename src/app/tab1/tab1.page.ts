@@ -9,11 +9,12 @@ import { CommondataService } from '../commondata.service';
 })
 export class Tab1Page {
   imageList = [];
-  @HostListener('scroll', ['$event.target'])
-  onScroll(elem){
-    if(( elem.offsetHeight + elem.scrollTop) >=  elem.scrollHeight) {
-    }
+  @HostListener("scroll", ['"hello!"', "$event"])
+  LoadMoreData(event) {
+    console.log('scrollingggggg', event)
   }
+
+
   constructor(private _dataService: CommondataService, private router: Router) {}
 
   ngOnInit() {

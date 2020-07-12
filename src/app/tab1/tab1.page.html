@@ -6,12 +6,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" scrollTracker>
+<ion-content [fullscreen]="true" scrollTracker (scroll)="LoadMoreData($event)">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
+
 
   <ion-card *ngFor="let item of imageList; let i = index" (click)="clickHandler(item, i)">
     <img src="{{item.url}}" />

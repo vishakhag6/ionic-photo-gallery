@@ -1,8 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      <ion-button size="small" (click)="goBack()">Back</ion-button>
-      Details
+      <button ion-button size="large" icon-start (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+        Details
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,12 +15,10 @@
       <ion-title size="large">Details</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <div class="container">
-    <ion-button expand="block" fill="outline" (click)="goNext('0')">Prev</ion-button>
-    <ion-card>
-      <img src="{{loadedImage}}" />
-    </ion-card>
-    <ion-button expand="block" fill="outline" (click)="goNext('1')">Next</ion-button>
-  </div>  
+  
+  <ion-slides #slides (ionSlideDidChange)="slideChanged(slides)">
+    <ion-slide *ngFor="let item of dataList">
+      <h1>{{item}}</h1>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
