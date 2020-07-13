@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommondataService } from '../commondata.service';
 
@@ -9,11 +9,6 @@ import { CommondataService } from '../commondata.service';
 })
 export class Tab1Page {
   imageList = [];
-  @HostListener("scroll", ['"hello!"', "$event"])
-  LoadMoreData(event) {
-    console.log('scrollingggggg', event)
-  }
-
 
   constructor(private _dataService: CommondataService, private router: Router) {}
 
@@ -24,7 +19,7 @@ export class Tab1Page {
   showData() {
     this._dataService.getDataService().subscribe((data: any) => {
       if (data) {
-        this.imageList = data.slice(0, 10)
+        this.imageList = data.slice(0,30)
       }
     });
   }

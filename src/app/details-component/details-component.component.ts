@@ -9,34 +9,39 @@ import { IonSlides } from '@ionic/angular';
   templateUrl: './details-component.component.html',
   styleUrls: ['./details-component.component.scss'],
 })
+
 export class DetailsComponentComponent implements OnInit {
-  loadedImage = '';
-  loadedIndex;
   dataList = [];
   currentIndex:Number;
 
   @ViewChild('slides', { static: false }) slides: IonSlides;
-
   constructor( private _dataService: CommondataService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.loadedImage = params.url;
-      this.loadedIndex = Number(params.index);
+      this.currentIndex = Number(params.index);
     });
     this.showData();
   }
 
-  slideChanged(slides: IonSlides) {
-   slides.getActiveIndex().then((index: number) => {
-    console.log(index);
-    // this.currentIndex = index;
-   });
-  } 
+
+  ionViewDidEnter() {
+    this.slides.slideTo(Number(this.currentIndex), 0); // The 0 will avoid the transition of the slides to be shown
+  }
+  
+//   slideChanged(slides: IonSlides) {
+//    slides.getActiveIndex().then((index: number) => {
+//     console.log('getActiveIndex', index);
+//    });
+//  } 
 
   showData() {
     this._dataService.getDataService().subscribe((data: any) => {
-      this.dataList = data
+      this.dataList = data.slice(0, 30)
     });
+  }
+
+  goBack() {
+    this.router.navigate(['/']);
   }
 }

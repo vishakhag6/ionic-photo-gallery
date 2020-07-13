@@ -16,9 +16,13 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-slides #slides (ionSlideDidChange)="slideChanged(slides)">
-    <ion-slide *ngFor="let item of dataList">
-      <h1>{{item}}</h1>
-    </ion-slide>
-  </ion-slides>
+  <div class="container">
+    <ion-card>
+      <ion-slides #slides>
+        <ion-slide *ngFor="let item of dataList">
+          <img src="{{item.url}}" />
+        </ion-slide>
+      </ion-slides>
+    </ion-card>
+  </div>
 </ion-content>
